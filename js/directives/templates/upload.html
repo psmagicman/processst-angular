@@ -11,8 +11,19 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="progress">
+            <div ng-style="{'width': wistiaRenderProgress + '%'}" class="progress-bar progress-bar-success" role="progressbar">
+                {{wistiaRenderStatus}}
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row" id="video-container">
-    <div class="embed-responsive embed-responsive-16by9">
-        
+    <div class="col-md-12">
+        <div ng-show="ready" class="embed-responsive embed-responsive-16by9">
+            <iframe ng-src="{{embed}}" style="height:480px;width:640px;" />
+        </div>
     </div>
 </div>
