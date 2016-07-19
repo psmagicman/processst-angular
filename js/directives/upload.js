@@ -1,6 +1,6 @@
 app.directive('fileUpload', ['$http', '$timeout', '$sce', function($http, $timeout, $sce) {
 
-    var masterKey = '';
+    var masterKey = '8d72fc6102f16a6999d084fd6a3c0cd582d4f5220eac954fb91e740233bb8752';
 
     var uploadUrl = 'https://upload.wistia.com';
 
@@ -23,7 +23,6 @@ app.directive('fileUpload', ['$http', '$timeout', '$sce', function($http, $timeo
             $http.get(checkUrl+scope.hash+'.json', 
                 {params: {api_password: masterKey}}).then(function success(response) {
                     var data = response.data;
-                    console.log(data);
                     scope.wistiaRenderStatus = data.status;
                     scope.wistiaRenderProgress = data.progress * 100;
                     if (data.status === 'ready') {
@@ -50,6 +49,11 @@ app.directive('fileUpload', ['$http', '$timeout', '$sce', function($http, $timeo
             done: function (e, data) {
                 scope.hash = data.result.hashed_id;
                 scope.attachVideo();
+            },
+            progressall: function (e, data) {
+                scope.$apply(function () {
+                    scope.wistiaUploadProgress = parseInt(data.loaded / data.total * 100, 10);
+                });
             }
         })
     }
